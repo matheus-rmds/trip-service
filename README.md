@@ -3,7 +3,7 @@
 ## Descrição
 
 API responsável pela regra de negócio do TravelPlan: recebe uma cidade e um
-período de datas, consulta a previsão do tempo na API externa **Open-Meteo**
+período de datas, consulta a previsão do tempo na API externa Open-Meteo
 e calcula o melhor dia da janela informada (menor chance de chuva), além de
 uma sugestão simples de bagagem. Os planos de viagem são persistidos em um
 banco SQLite.
@@ -21,28 +21,46 @@ proxy com cache para as rotas abaixo.
 | PUT | /trips/{id} | Atualiza cidade/datas e recalcula o plano |
 | DELETE | /trips/{id} | Remove uma viagem |
 
-Documentação interativa (Swagger) disponível em `/docs` após subir a aplicação.
-
-## Instalação e execução local (sem Docker)
-
-1. Crie e ative um ambiente virtual:
-
-python -m venv .venv
-
-.venv\Scripts\activate
-
-2. Instale as dependências:
-
-pip install -r requirements.txt
-
-3. Suba a aplicação:
-
-uvicorn app.main:app --reload --port 8001
-
-4. Acesse a documentação em http://localhost:8001/docs
+Documentação interativa (Swagger) disponível em /docs após subir a aplicação.
 
 ## Execução via Docker
 
-docker build -t trip-service .
+Passo 1: Construa a imagem:
 
+```
+docker build -t trip-service .
+```
+
+Passo 2: Rode o container:
+
+```
 docker run -p 8001:8001 --name trip-service trip-service
+```
+
+Passo 3: Acesse a documentação em http://localhost:8001/docs
+
+Para rodar em conjunto com a API Principal (gateway), veja as instruções
+completas no README do gateway: https://github.com/matheus-rmds/gateway
+
+## Instalação e execução local (sem Docker)
+
+Passo 1: Crie e ative um ambiente virtual:
+
+```
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+Passo 2: Instale as dependências:
+
+```
+pip install -r requirements.txt
+```
+
+Passo 3: Suba a aplicação:
+
+```
+uvicorn app.main:app --reload --port 8001
+```
+
+Passo 4: Acesse a documentação em http://localhost:8001/docs
