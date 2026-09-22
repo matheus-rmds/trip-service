@@ -2,3 +2,5 @@
 __pycache__/
 *.pyc
 trips.db
+test_weather.py
+test_async.py
