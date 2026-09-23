@@ -1,7 +1,6 @@
+import httpx
 from datetime import date
 from typing import Tuple
-
-import httpx
 
 GEOCODING_URL = "https://geocoding-api.open-meteo.com/v1/search"
 FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
@@ -54,12 +53,14 @@ def choose_best_day(daily: dict) -> dict:
 
 def generate_packing_suggestion(info: dict) -> str:
     items = []
-    if info["rain_chance"] >= 40:
+    if info["rain_chance"] >= 50:
         items.append("guarda-chuva")
-    if info["temp_max"] >= 28:
+    if info["temp_max"] >= 30:
         items.append("protetor solar")
     if info["temp_min"] <= 15:
         items.append("casaco")
     if not items:
         items.append("roupas leves, sem itens especiais necessarios")
-    return ", ".join(items)
+
+    formatted_day = info["best_day"].strftime("%d/%m/%Y")
+    return f"No dia {formatted_day}, leve: {', '.join(items)}"
